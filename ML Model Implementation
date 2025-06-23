@@ -1,0 +1,52 @@
+# Importing libraries
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from sklearn.model_selection import train_test_split
+from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.naive_bayes import MultinomialNB
+from sklearn.metrics import classification_report, confusion_matrix
+
+# Load dataset
+url = "https://raw.githubusercontent.com/justmarkham/pycon-2016-tutorial/master/data/sms.tsv"
+df = pd.read_table(url, header=None, names=["label", "message"])
+
+# Display first few rows
+print("Sample Data:")
+print(df.head())
+
+# Convert labels to binary
+df['label'] = df['label'].map({'ham': 0, 'spam': 1})
+
+# Vectorize the text messages
+vectorizer = CountVectorizer()
+X = vectorizer.fit_transform(df['message'])
+
+# Target variable
+y = df['label']
+
+# Train-test split
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Build and train the model
+model = MultinomialNB()
+model.fit(X_train, y_train)
+
+# Predict on test data
+y_pred = model.predict(X_test)
+
+# Evaluation
+print("\nConfusion Matrix:")
+print(confusion_matrix(y_test, y_pred))
+
+print("\nClassification Report:")
+print(classification_report(y_test, y_pred))
+
+# Visualize confusion matrix
+plt.figure(figsize=(6,4))
+sns.heatmap(confusion_matrix(y_test, y_pred), annot=True, fmt="d", cmap="Blues")
+plt.xlabel("Predicted Label")
+plt.ylabel("True Label")
+plt.title("Confusion Matrix - Spam Detection")
+plt.show()
