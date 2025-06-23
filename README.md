@@ -24,7 +24,6 @@ Output will include:
 1. Sample data preview
 2. Confusion Matrix
 3. Classification Report
-4. Heatmap visualization of prediction performance
 
 📊 Model Workflow
 Data Loading
@@ -36,9 +35,10 @@ Model Training
 A Multinomial Naive Bayes model is trained on the vectorized data.
 Evaluation
 Confusion Matrix
-Precision, Recall, F1-Score
-Heatmap Visualization
 
 📦 SAMPLE OUTPUT:
+![Image](https://github.com/user-attachments/assets/0adb2da1-a467-499e-b860-567a2c3b25b8)
 
+CONFUSION MATRIX:
+![Image](https://github.com/user-attachments/assets/60341ddd-48af-4cdd-82e8-d07e8c0c7988)
 
